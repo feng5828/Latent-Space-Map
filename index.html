@@ -265,7 +265,9 @@ let drag=false, lx=0, ly=0, downX=0, downY=0, hover=null, mx=0, my=0;
 canvas.onmousedown=e=>{drag=true;lx=downX=e.clientX;ly=downY=e.clientY;view.vx=view.vy=0;};
 canvas.onmouseup = e => {
   drag = false;
-
+  const dx = e.clientX - downX;
+  const dy = e.clientY - downY;
+  if (Math.abs(dx) > 5 || Math.abs(dy) > 5) return; // 忽略拖动
   // 计算鼠标在世界坐标中的位置（考虑缩放和平移）
   const mouseX = (e.clientX - w / 2) / view.zoom - view.x;
   const mouseY = (e.clientY - h / 2) / view.zoom - view.y;
